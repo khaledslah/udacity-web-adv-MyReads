@@ -8,24 +8,22 @@ import BookSearch from './Components/BookSearch'
 
 class BooksApp extends React.Component {
   state={
-    shelfs:["currentlyReading","wantToRead", "read"],
+    shelfs:[{id:1,name: "currentlyReading"},{id:2,name: "wantToRead"}, {id:3,name: "read"}],
     books:[]
 }
-componentDidMount(){
-    BooksAPI.getAll().then((serverBooks)=>{
+async componentDidMount(){
+    const serverBooks = await BooksAPI.getAll();
         this.setState(()=> ({
             books:serverBooks
             }))
-        })
-    }
+}
 
-handleShelfChange(book,shelf){
-    BooksAPI.update(book,shelf).then(()=>{
+async handleShelfChange(book,shelf){
+    await BooksAPI.update(book,shelf)
         book.shelf = shelf
         this.setState((currentState)=>({
             books: currentState.books.filter(item => item.id !== book.id).concat([book])
         }))
-    });
 }
 
   render() {
@@ -33,7 +31,7 @@ handleShelfChange(book,shelf){
       <BrowserRouter>
       <div className="app">
         <Route exact path='/search' render={()=>(
-          <BookSearch onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
+          <BookSearch books={this.state.books} onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
         )}/> <Route exact path='/' render={()=>(
           <div className="list-books">
             <div className="list-books-title">
@@ -42,7 +40,7 @@ handleShelfChange(book,shelf){
             <div className="list-books-content">
                 <div>
                     {this.state.shelfs.map((shelf)=>(
-                    <BookShelf shelfName={shelf} books={this.state.books} onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
+                    <BookShelf key={shelf.id}shelfName={shelf.name} books={this.state.books} onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
                     ))
                     }
                 </div>

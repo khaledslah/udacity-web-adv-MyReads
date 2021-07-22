@@ -9,12 +9,12 @@ class Book extends React.Component {
     render(){
         const thumb = ('imageLinks' in this.props.book)?this.props.book.imageLinks.thumbnail:''
         return(
-        <li key={this.props.key}>
+        <li >
             <div className="book">
               <div className="book-top">
                 <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: `url(${thumb})`}}></div>
                 <div className="book-shelf-changer">
-                  <select value ={this.props.book.shelf || "none"}onChange={(e)=>{this.handleChange(e)}}>
+                  <select value ={this.props.book.shelf || "none"} onChange={(e)=>{this.handleChange(e)}}>
                     <option value="move" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
