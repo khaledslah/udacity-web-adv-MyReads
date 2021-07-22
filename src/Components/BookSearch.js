@@ -3,6 +3,7 @@ import * as BooksAPI from '../BooksAPI'
 import BookShelf from './BookShelf.js'
 import {Link} from 'react-router-dom'
 import debounce from 'lodash.debounce'
+import PropTypes from 'prop-types'; 
 
 class BookSearch extends React.Component {
     constructor(props) {
@@ -57,6 +58,11 @@ class BookSearch extends React.Component {
               }</div>
 
         )}
+}
+
+BookSearch.propTypes = {
+    books: PropTypes.array.isRequired,
+    onShelfChange:PropTypes.func.isRequired,
 }
 
 export default BookSearch;

@@ -39,8 +39,9 @@ async handleShelfChange(book,shelf){
             </div>
             <div className="list-books-content">
                 <div>
-                    {this.state.shelfs.map((shelf)=>(
-                    <BookShelf key={shelf.id}shelfName={shelf.name} books={this.state.books} onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
+                    {
+                    this.state.shelfs.map((shelf)=>(
+                    <BookShelf key={shelf.id} shelfName={shelf.name} books={this.state.books} onShelfChange={(book,shelf)=>{this.handleShelfChange(book,shelf)}}/>
                     ))
                     }
                 </div>

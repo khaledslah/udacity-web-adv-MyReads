@@ -1,12 +1,12 @@
 import React from "react"
 import Book from './Book.js'
+import PropTypes from 'prop-types'; 
 
 class BookShelf extends React.Component {
     handleShelfChange(book,shelf){
         this.props.onShelfChange(book,shelf)
     }
     render(){
-        
     return(
         (this.props.shelfName == "searchList")?(
             <div className="search-books-results">
@@ -36,5 +36,10 @@ class BookShelf extends React.Component {
     )
 }
 }
+
+BookShelf.propTypes = {
+    books: PropTypes.array.isRequired,
+    onShelfChange:PropTypes.func.isRequired,
+  }
 
 export default BookShelf;
